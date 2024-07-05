@@ -1,0 +1,19 @@
+{
+  "name": "go-cardless-client-lib",
+  "version": "2.0.2",
+  "description": "Library to connect to go cardless api",
+  "main": "lib/connector.js",
+  "types": "lib/connector.d.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Emmanuel Okuchukwu (eokuchukwu95@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "typescript": "^5.5.2"
+  }
+}
