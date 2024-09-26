@@ -1,5 +1,5 @@
 import axios from 'axios';
-import connectorHelper from '../../lib/helper/connector-helper';
+import connectorHelper from '../../../lib/helper/connector-helper';
 
 jest.mock('axios');
 
@@ -14,7 +14,7 @@ describe('connector-helper fn', () => {
 
     const response = await connectorHelper(
       'www.example.com',
-      'GET',
+      'POST',
       {
         title: 'Hello World',
       },
@@ -31,7 +31,34 @@ describe('connector-helper fn', () => {
         Accept: 'application/json',
         'content-type': 'application/json',
       },
-      method: 'GET',
+      method: 'POST',
+      url: 'www.example.com',
+    });
+  });
+
+  it('should make an axios request (without req body present)', async () => {
+    (axios as unknown as jest.Mock).mockResolvedValue({
+      data: { homer: 'simpson' },
+    });
+
+    const response = await connectorHelper(
+      'www.example.com',
+      'POST',
+      {},
+      {
+        'content-type': 'application/json',
+        Accept: 'application/json',
+      }
+    );
+    expect(response).toEqual({ homer: 'simpson' });
+    expect(axios).toHaveBeenCalledTimes(1);
+    expect(axios).toHaveBeenCalledWith({
+      data: '{}',
+      headers: {
+        Accept: 'application/json',
+        'content-type': 'application/json',
+      },
+      method: 'POST',
       url: 'www.example.com',
     });
   });

@@ -6,7 +6,9 @@
   "types": "lib/connector.d.ts",
   "scripts": {
     "test": "jest",
-    "dist": "tsc"
+    "test:coverage": "jest --coverage",
+    "dist": "tsc",
+    "format": "prettier --single-quote --trailing-comma es5 --write '{lib,__tests__}/**/*.ts'"
   },
   "author": "Emmanuel Okuchukwu (eokuchukwu95@gmail.com)",
   "license": "ISC",
@@ -34,15 +36,13 @@
     },
     "coverageDirectory": "coverage/",
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
+      "lib/**/*.{js,jsx,ts,tsx}"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "dist/",
       "coverage/",
-      "src/index.js",
-      "src/app.js",
-      "src/server.js"
+      "lib/index.js"
     ],
     "coverageThreshold": {
       "global": {
