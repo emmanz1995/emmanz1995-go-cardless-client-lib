@@ -1,17 +1,20 @@
 {
   "name": "go-cardless-client-lib",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Library to connect to go cardless api",
   "main": "lib/connector.js",
   "types": "lib/connector.d.ts",
   "scripts": {
     "test": "jest",
-    "dist": "tsc"
+    "test:coverage": "jest --coverage",
+    "dist": "tsc",
+    "format": "prettier --single-quote --trailing-comma es5 --write '{lib,__tests__}/**/*.ts'"
   },
   "author": "Emmanuel Okuchukwu (eokuchukwu95@gmail.com)",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.7.2"
+    "axios": "^1.7.2",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "@types/jest": "^29.5.13",
@@ -33,15 +36,13 @@
     },
     "coverageDirectory": "coverage/",
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
+      "lib/**/*.{js,jsx,ts,tsx}"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "dist/",
       "coverage/",
-      "src/index.js",
-      "src/app.js",
-      "src/server.js"
+      "lib/index.js"
     ],
     "coverageThreshold": {
       "global": {
