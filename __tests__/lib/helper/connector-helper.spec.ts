@@ -1,14 +1,14 @@
-import axios from 'axios';
 import connectorHelper from '../../../lib/helper/connector-helper';
+import { request as api } from '../../../lib/helper/axiosInterceptor';
 
-jest.mock('axios');
+jest.mock('../../../lib/helper/axiosInterceptor');
 
 describe('connector-helper fn', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
   it('should make an axios request', async () => {
-    (axios as unknown as jest.Mock).mockResolvedValue({
+    (api?.request as unknown as jest.Mock).mockResolvedValue({
       data: { homer: 'simpson' },
     });
 
@@ -17,15 +17,11 @@ describe('connector-helper fn', () => {
       'POST',
       {
         title: 'Hello World',
-      },
-      {
-        'content-type': 'application/json',
-        Accept: 'application/json',
       }
     );
     expect(response).toEqual({ homer: 'simpson' });
-    expect(axios).toHaveBeenCalledTimes(1);
-    expect(axios).toHaveBeenCalledWith({
+    expect(api.request).toHaveBeenCalledTimes(1);
+    expect(api.request).toHaveBeenCalledWith({
       data: '{"title":"Hello World"}',
       headers: {
         Accept: 'application/json',
@@ -37,7 +33,7 @@ describe('connector-helper fn', () => {
   });
 
   it('should make an axios request (without req body present)', async () => {
-    (axios as unknown as jest.Mock).mockResolvedValue({
+    (api.request as unknown as jest.Mock).mockResolvedValue({
       data: { homer: 'simpson' },
     });
 
@@ -45,14 +41,10 @@ describe('connector-helper fn', () => {
       'www.example.com',
       'POST',
       {},
-      {
-        'content-type': 'application/json',
-        Accept: 'application/json',
-      }
     );
     expect(response).toEqual({ homer: 'simpson' });
-    expect(axios).toHaveBeenCalledTimes(1);
-    expect(axios).toHaveBeenCalledWith({
+    expect(api.request).toHaveBeenCalledTimes(1);
+    expect(api.request).toHaveBeenCalledWith({
       data: '{}',
       headers: {
         Accept: 'application/json',
@@ -65,7 +57,7 @@ describe('connector-helper fn', () => {
 
   it('should have failed to make an axios request', async () => {
     expect.assertions(3) as any;
-    (axios as unknown as jest.Mock).mockImplementation(() => {
+    (api.request as unknown as jest.Mock).mockImplementation(() => {
       throw new Error('Failed to make request');
     });
 
@@ -76,15 +68,11 @@ describe('connector-helper fn', () => {
         {
           title: 'Hello World',
         },
-        {
-          'content-type': 'application/json',
-          Accept: 'application/json',
-        }
       );
     } catch (err: any) {
       expect(err.message).toEqual('Failed to make request');
-      expect(axios).toHaveBeenCalledTimes(1);
-      expect(axios).toHaveBeenCalledWith({
+      expect(api.request).toHaveBeenCalledTimes(1);
+      expect(api.request).toHaveBeenCalledWith({
         data: '{"title":"Hello World"}',
         headers: {
           Accept: 'application/json',

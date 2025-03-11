@@ -1,20 +1,14 @@
-import axios from 'axios';
+import { request as api } from './axiosInterceptor';
 
-export default async (
-  url: string,
-  method: string,
-  body: object,
-  headers: object
-) => {
+export default async (url: string, method: string, body?: object) => {
   const headerOpts = {
     'content-type': 'application/json',
     Accept: 'application/json',
-    ...headers,
   };
   let data: object;
 
   try {
-    ({ data } = await axios({
+    ({ data } = await api.request({
       url,
       method,
       ...(body ? { data: JSON.stringify(body) } : null),
