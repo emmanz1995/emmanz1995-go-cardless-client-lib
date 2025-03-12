@@ -12,13 +12,9 @@ describe('connector-helper fn', () => {
       data: { homer: 'simpson' },
     });
 
-    const response = await connectorHelper(
-      'www.example.com',
-      'POST',
-      {
-        title: 'Hello World',
-      }
-    );
+    const response = await connectorHelper('www.example.com', 'POST', {
+      title: 'Hello World',
+    });
     expect(response).toEqual({ homer: 'simpson' });
     expect(api.request).toHaveBeenCalledTimes(1);
     expect(api.request).toHaveBeenCalledWith({
@@ -37,11 +33,7 @@ describe('connector-helper fn', () => {
       data: { homer: 'simpson' },
     });
 
-    const response = await connectorHelper(
-      'www.example.com',
-      'POST',
-      {},
-    );
+    const response = await connectorHelper('www.example.com', 'POST', {});
     expect(response).toEqual({ homer: 'simpson' });
     expect(api.request).toHaveBeenCalledTimes(1);
     expect(api.request).toHaveBeenCalledWith({
@@ -62,13 +54,9 @@ describe('connector-helper fn', () => {
     });
 
     try {
-      await connectorHelper(
-        'www.example.com',
-        'GET',
-        {
-          title: 'Hello World',
-        },
-      );
+      await connectorHelper('www.example.com', 'GET', {
+        title: 'Hello World',
+      });
     } catch (err: any) {
       expect(err.message).toEqual('Failed to make request');
       expect(api.request).toHaveBeenCalledTimes(1);

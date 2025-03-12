@@ -31,7 +31,7 @@ export async function getAccessToken() {
   return accessToken;
 }
 
-export async function refreshTokens(): Promise<String|null> {
+export async function refreshTokens(): Promise<String | null> {
   if (!accessToken && !refreshToken) {
     return await getAccessToken();
   }

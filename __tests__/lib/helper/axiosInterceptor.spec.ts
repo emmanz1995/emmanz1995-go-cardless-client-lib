@@ -1,17 +1,17 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import dotenv from 'dotenv';
 import { request as client } from '../../../lib/helper/axiosInterceptor';
-import { getAccessToken } from '../../../lib/helper/fetchTokens';
+import { getAccessToken } from '../../../lib/fetchTokens';
 
 dotenv.config();
 
 jest.mock('dotenv');
 jest.mock('axios');
-jest.mock('../../../lib/helper/fetchTokens', () => ({
-  getAccessToken: jest.fn()
-}))
+jest.mock('../../../lib/fetchTokens', () => ({
+  getAccessToken: jest.fn(),
+}));
 
-const mockAxios = axios.create as jest.Mock
+const mockAxios = axios.create as jest.Mock;
 
 // const api = {
 //   get: jest.fn(),
@@ -30,7 +30,6 @@ const mockAxios = axios.create as jest.Mock
 //     },
 //   },
 // };
-
 
 // describe('request interceptor', () => {
 //   // mockAxios.mockResolvedValue(request);

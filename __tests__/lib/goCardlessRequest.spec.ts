@@ -24,7 +24,7 @@ describe('connector-helper fn', () => {
     expect(connectorHelper).toHaveBeenCalledWith(
       'www.emmanuel.com',
       'GET',
-      null,
+      null
     );
   });
 
@@ -41,11 +41,9 @@ describe('connector-helper fn', () => {
 
     expect(gocardlessClient).toEqual({ data: { homer: 'simpson' } });
     expect(connectorHelper).toHaveBeenCalledTimes(1);
-    expect(connectorHelper).toHaveBeenCalledWith(
-      'www.emmanuel.com',
-      'POST',
-      { some: 'data' }
-    );
+    expect(connectorHelper).toHaveBeenCalledWith('www.emmanuel.com', 'POST', {
+      some: 'data',
+    });
   });
 
   it('should have failed to make an goCardlessClient request', async () => {
@@ -58,7 +56,7 @@ describe('connector-helper fn', () => {
       await goCardlessClient({
         url: 'www.emmanuel.com',
         method: 'GET',
-        body: null
+        body: null,
       });
     } catch (err: any) {
       expect(err.message).toEqual('Failed to make request!');
