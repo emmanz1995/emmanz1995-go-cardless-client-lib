@@ -1,4 +1,4 @@
-import { request as api } from './axiosInterceptor';
+import { createApiClient as api } from './axiosInterceptor';
 
 export default async (url: string, method: string, body?: object) => {
   const headerOpts = {
@@ -8,7 +8,7 @@ export default async (url: string, method: string, body?: object) => {
   let data: object;
 
   try {
-    ({ data } = await api.request({
+    ({ data } = await api()?.request({
       url,
       method,
       ...(body ? { data: JSON.stringify(body) } : null),
@@ -16,7 +16,7 @@ export default async (url: string, method: string, body?: object) => {
     }));
   } catch (err: any) {
     console.log('Failed to make request', err);
-    throw new Error('Failed to make request');
+    throw new Error(err.message);
   }
 
   return data;
