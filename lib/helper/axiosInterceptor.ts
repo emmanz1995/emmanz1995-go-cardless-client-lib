@@ -69,6 +69,7 @@ export const createApiClient = (): AxiosInstance => {
 
         if (regeneratedToken) {
           err.config.headers.Authorization = `Bearer ${regeneratedToken}`;
+          //@ts-ignore
           return request(err.config); // Retry the request
         }
       }
