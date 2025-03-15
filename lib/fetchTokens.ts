@@ -8,9 +8,9 @@ let refreshToken: null = null;
 
 const { SECRET_ID: secret_id, SECRET_KEY: secret_key } = process.env;
 
-export const retrieveTokens = async (): Promise<String|null> => {
+export const retrieveTokens = async (): Promise<String | null> => {
   let data;
-  console.log(process.env)
+  console.log(process.env);
   try {
     ({ data } = await axios({
       url: `${process.env.BASE_URL}/api/v2/token/new/`,
@@ -44,7 +44,7 @@ export async function refreshTokens(): Promise<String | null> {
     const response = await axios.post(
       `${process.env.BASE_URL}/api/v2/token/refresh`!,
       {
-        refresh: refreshToken
+        refresh: refreshToken,
       },
       {
         headers: {

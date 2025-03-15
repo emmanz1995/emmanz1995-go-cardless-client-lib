@@ -18,11 +18,11 @@ describe('test for retrieving tokens', () => {
     expect(axios).toHaveBeenCalledTimes(1);
     expect(axios).toHaveBeenCalledWith({
       data: {
-        "secret_id": "def-456",
-        "secret_key": "abc-123",
+        secret_id: 'def-456',
+        secret_key: 'abc-123',
       },
       method: 'POST',
-      "url": "www.homer-simpson.com/api/v2/token/new/",
+      url: 'www.homer-simpson.com/api/v2/token/new/',
     });
   });
 
@@ -33,7 +33,7 @@ describe('test for retrieving tokens', () => {
 
     try {
       await retrieveTokens();
-    } catch(err: any) {
+    } catch (err: any) {
       expect(err.message).toEqual('oops');
       expect(axios).toHaveBeenCalled();
     }

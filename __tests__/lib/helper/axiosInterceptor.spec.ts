@@ -9,7 +9,7 @@ jest.mock('dotenv');
 jest.mock('axios');
 jest.mock('../../../lib/fetchTokens', () => ({
   getAccessToken: jest.fn(),
-  refreshTokens: jest.fn()
+  refreshTokens: jest.fn(),
 }));
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -54,7 +54,9 @@ describe('createApiClient', () => {
     const mockConfig = { headers: {} } as InternalAxiosRequestConfig;
     mockedGetAccessToken.mockResolvedValue('mocked_token');
 
-    const [requestInterceptor] = (apiClient.interceptors.request.use as jest.Mock).mock.calls[0];
+    const [requestInterceptor] = (
+      apiClient.interceptors.request.use as jest.Mock
+    ).mock.calls[0];
     const modifiedConfig = await requestInterceptor(mockConfig);
 
     expect(modifiedConfig.headers.Authorization).toBe('Bearer mocked_token');
@@ -62,15 +64,17 @@ describe('createApiClient', () => {
 
   it('should refresh token and retry request on 401 error', async () => {
     mockRequest.mockImplementation(() => ({
-      data: { json: 'token' }
-    }))
+      data: { json: 'token' },
+    }));
     const mockError = {
       response: { status: 401 },
       config: { headers: {} },
     };
     mockedRefreshTokens.mockImplementation(() => 'new_token');
 
-    const [, responseErrorInterceptor] = (apiClient.interceptors.response.use as jest.Mock).mock.calls[0];
+    const [, responseErrorInterceptor] = (
+      apiClient.interceptors.response.use as jest.Mock
+    ).mock.calls[0];
     const retryResponse = await responseErrorInterceptor(mockError);
 
     expect(retryResponse.config.headers.Authorization).toBe('Bearer new_token');
@@ -79,7 +83,11 @@ describe('createApiClient', () => {
   it('should reject other errors', async () => {
     const mockError = { response: { status: 500 } };
 
-    const [, responseErrorInterceptor] = (apiClient.interceptors.response.use as jest.Mock).mock.calls[0];
-    await expect(responseErrorInterceptor(mockError)).rejects.toEqual(mockError);
+    const [, responseErrorInterceptor] = (
+      apiClient.interceptors.response.use as jest.Mock
+    ).mock.calls[0];
+    await expect(responseErrorInterceptor(mockError)).rejects.toEqual(
+      mockError
+    );
   });
 });

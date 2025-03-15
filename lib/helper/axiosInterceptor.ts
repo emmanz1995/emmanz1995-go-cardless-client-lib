@@ -1,4 +1,8 @@
-import axios, { AxiosResponse, InternalAxiosRequestConfig, AxiosInstance } from 'axios';
+import axios, {
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+  AxiosInstance,
+} from 'axios';
 import dotenv from 'dotenv';
 import { getAccessToken, refreshTokens } from '../fetchTokens';
 
