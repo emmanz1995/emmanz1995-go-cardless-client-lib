@@ -3,7 +3,7 @@ process.env.SECRET_ID = 'def-456';
 process.env.BASE_URL = 'www.homer-simpson.com';
 
 import axios from 'axios';
-import { retrieveTokens } from '../../../lib/fetchTokens';
+import { retrieveTokens } from '../../lib/fetchTokens';
 
 jest.mock('axios');
 

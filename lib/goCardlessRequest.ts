@@ -1,7 +1,7 @@
 import connectorHelper from './helper/connector-helper';
 import { IFetchParams } from './helper/interfaces';
 
-export default async (fetchParams: IFetchParams) => {
+const connector = async (fetchParams: IFetchParams) => {
   const { url, method, body } = fetchParams;
   let response;
 
@@ -14,3 +14,12 @@ export default async (fetchParams: IFetchParams) => {
 
   return response;
 };
+
+export default connector;
+
+connector({
+  url: 'https://bankaccountdata.gocardless.com/api/v2/institutions?country=GB',
+  method: 'GET',
+})
+  .then((res: any) => console.log(res))
+  .catch((err: any) => console.log(err));

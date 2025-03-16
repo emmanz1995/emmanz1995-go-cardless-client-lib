@@ -6,14 +6,18 @@ dotenv.config();
 let accessToken: null = null;
 let refreshToken: null = null;
 
-const { SECRET_ID: secret_id, SECRET_KEY: secret_key } = process.env;
+const {
+  SECRET_ID: secret_id,
+  SECRET_KEY: secret_key,
+  BASE_URL: url,
+} = process.env;
 
 export const retrieveTokens = async (): Promise<String | null> => {
   let data;
   console.log(process.env);
   try {
     ({ data } = await axios({
-      url: `${process.env.BASE_URL}/api/v2/token/new/`,
+      url: `${url}/api/v2/token/new/`,
       method: 'POST',
       data: { secret_id, secret_key },
     }));
@@ -42,7 +46,7 @@ export async function refreshTokens(): Promise<String | null> {
 
   try {
     const response = await axios.post(
-      `${process.env.BASE_URL}/api/v2/token/refresh`!,
+      `${url}/api/v2/token/refresh`!,
       {
         refresh: refreshToken,
       },
