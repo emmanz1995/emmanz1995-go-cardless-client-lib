@@ -37,5 +37,5 @@ const tokenManager = new AccessTokenManager(
 setupAuthInterceptors(axiosInstance, tokenManager);
 
 export class GoCardlessClient {
-    institutionOperation: InstitutionOperations = new InstitutionOperationsImpl(axiosInstance)
+    institutions: InstitutionOperations = new InstitutionOperationsImpl(axiosInstance)
 }
