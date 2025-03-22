@@ -1,8 +1,11 @@
 import {AuthOperations, AuthOperationsImpl} from "./operations/auth-operations";
 import axios from "axios";
+import dotenv from 'dotenv';
 import { AccessTokenManager } from "./helper/auth-token-manager";
 import { setupAuthInterceptors } from "./helper/auth-interceptor";
 import {InstitutionOperations, InstitutionOperationsImpl} from "./operations/institution-operations";
+
+dotenv.config()
 
 const baseUrl = process.env.GO_CARDLESS_BASE_URL;
 const secretId = process.env.GO_CARDLESS_SECRET_ID;

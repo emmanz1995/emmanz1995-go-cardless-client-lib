@@ -18,6 +18,7 @@ export class AccessTokenManager {
   }
 
   public async getAccessToken(): Promise<string> {
+    console.log('making access token')
     const now = Date.now();
     const buffer = 5 * 1000; // optional: expire a few seconds early
 
@@ -29,11 +30,11 @@ export class AccessTokenManager {
       return this.ongoingTokenRequest;
     }
 
-    this.ongoingTokenRequest = this.retrieveNewToken().finally(() => {
-      this.ongoingTokenRequest = null;
-    });
+    // this.ongoingTokenRequest = this.retrieveNewToken().finally(() => {
+    //   this.ongoingTokenRequest = null;
+    // });
 
-    return this.ongoingTokenRequest;
+    return await this.retrieveNewToken()
   }
 
   private async retrieveNewToken(): Promise<string> {
