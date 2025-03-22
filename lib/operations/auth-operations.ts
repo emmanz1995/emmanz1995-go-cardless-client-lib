@@ -36,14 +36,9 @@ export class AuthOperationsImpl implements AuthOperations {
 
     async refreshTokens(refreshToken: string): Promise<RefreshTokenResponse> {
         try {
-            const response = await this.axios.post(
+            const response = await this.axios.post<RefreshTokenResponse>(
                 `/api/v2/token/refresh`,
-                { refresh: refreshToken },
-                {
-                    headers: {
-                        Accept: 'application/json',
-                    },
-                }
+                { refresh: refreshToken }
             );
 
             return response.data

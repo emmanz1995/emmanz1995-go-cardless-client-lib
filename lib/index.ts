@@ -25,7 +25,7 @@ if (!secretKey) {
 
 const axiosAuthInstance = axios.create({
     baseURL: baseUrl,
-    timeout: 100000,
+    timeout: 5000,
     headers: {'Content-Type': 'application/json'}
 });
 
@@ -39,7 +39,7 @@ const tokenManager = new AccessTokenManager(
 // 🚀 Attach interceptors
 const axiosInstance = axios.create({
     baseURL: baseUrl,
-    timeout: 100000,
+    timeout: 5000,
     headers: {'Content-Type': 'application/json'}
 });
 setupAuthInterceptors(axiosInstance, tokenManager);
