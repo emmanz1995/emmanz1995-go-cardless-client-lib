@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.setupAuthInterceptors = setupAuthInterceptors;
 function setupAuthInterceptors(axiosInstance, tokenManager) {
     axiosInstance.interceptors.request.use(async (config) => {
+        console.log('getting token');
         const token = await tokenManager.getAccessToken();
         config.headers = config.headers || {};
         config.headers.Authorization = `Bearer ${token}`;

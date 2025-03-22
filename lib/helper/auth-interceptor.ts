@@ -7,8 +7,7 @@ export function setupAuthInterceptors(
 ): void {
     axiosInstance.interceptors.request.use(
         async (config: InternalAxiosRequestConfig) => {
-          console.log('getting token');
-          const token = await tokenManager.getAccessToken();
+            const token = await tokenManager.getAccessToken();
 
             config.headers = config.headers || {};
             config.headers.Authorization = `Bearer ${token}`;
@@ -25,6 +24,7 @@ export function setupAuthInterceptors(
         async (error: AxiosError) => {
             const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
+            console.log("Getting Response 401")
             // If 401 and not already retried
             if (
                 error.response?.status === 401 &&

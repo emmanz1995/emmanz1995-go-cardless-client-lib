@@ -12,8 +12,7 @@ export class InstitutionOperationsImpl implements InstitutionOperations {
         this.axios = axiosInstance;
     }
 
-    async getInstitutionsByCountry(countryCode: string): Promise<Institution[] | any> {
-        console.log('starting1111...')
+    async getInstitutionsByCountry(countryCode: string): Promise<Institution[]> {
         try {
             const response = await this.axios.get<Institution[]>(
                 `/api/v2/institutions/`,
@@ -25,7 +24,7 @@ export class InstitutionOperationsImpl implements InstitutionOperations {
                 }
             );
 
-            return response;
+            return response.data;
         } catch (error) {
             console.error(`Failed to fetch institutions for country ${countryCode}:`, error);
             throw error;

@@ -23,13 +23,13 @@ if (!secretKey) {
     throw new Error('Missing SECRET_KEY');
 }
 
-const axiosInstance = axios.create({
+const axiosAuthInstance = axios.create({
     baseURL: baseUrl,
-    timeout: 5000,
+    timeout: 100000,
     headers: {'Content-Type': 'application/json'}
 });
 
-const authOperations: AuthOperations = new AuthOperationsImpl(axiosInstance)
+const authOperations: AuthOperations = new AuthOperationsImpl(axiosAuthInstance)
 const tokenManager = new AccessTokenManager(
     authOperations,
     secretId,
@@ -37,6 +37,11 @@ const tokenManager = new AccessTokenManager(
 );
 
 // 🚀 Attach interceptors
+const axiosInstance = axios.create({
+    baseURL: baseUrl,
+    timeout: 100000,
+    headers: {'Content-Type': 'application/json'}
+});
 setupAuthInterceptors(axiosInstance, tokenManager);
 
 export class GoCardlessClient {

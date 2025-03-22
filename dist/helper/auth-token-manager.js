@@ -11,6 +11,7 @@ class AccessTokenManager {
         this.secretKey = secretKey;
     }
     async getAccessToken() {
+        console.log('making access token');
         const now = Date.now();
         const buffer = 5 * 1000; // optional: expire a few seconds early
         if (this.accessToken && this.accessExpiresAt && now < this.accessExpiresAt - buffer) {
@@ -19,10 +20,10 @@ class AccessTokenManager {
         if (this.ongoingTokenRequest) {
             return this.ongoingTokenRequest;
         }
-        this.ongoingTokenRequest = this.retrieveNewToken().finally(() => {
-            this.ongoingTokenRequest = null;
-        });
-        return this.ongoingTokenRequest;
+        // this.ongoingTokenRequest = this.retrieveNewToken().finally(() => {
+        //   this.ongoingTokenRequest = null;
+        // });
+        return await this.retrieveNewToken();
     }
     async retrieveNewToken() {
         try {

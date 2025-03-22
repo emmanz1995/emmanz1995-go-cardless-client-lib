@@ -21,10 +21,13 @@ export class AuthOperationsImpl implements AuthOperations {
         secretKey: string,
     ): Promise<AccessTokenResponse> {
         try {
-            return await this.axios.post(`/api/v2/token/new/`, {
+            console.log("Getting New Access Token")
+            const response = await this.axios.post<AccessTokenResponse>(`/api/v2/token/new/`, {
                 secret_id: secretId,
                 secret_key: secretKey,
             });
+
+            return response.data
         } catch (err: any) {
             console.error('Error retrieving tokens:', err);
             throw new Error(err.message);
@@ -33,7 +36,7 @@ export class AuthOperationsImpl implements AuthOperations {
 
     async refreshTokens(refreshToken: string): Promise<RefreshTokenResponse> {
         try {
-            return await this.axios.post(
+            const response = await this.axios.post(
                 `/api/v2/token/refresh`,
                 { refresh: refreshToken },
                 {
@@ -42,6 +45,8 @@ export class AuthOperationsImpl implements AuthOperations {
                     },
                 }
             );
+
+            return response.data
         } catch (err: any) {
             console.error('Failed to refresh access token:', err);
             throw new Error(err.message);
