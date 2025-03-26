@@ -1,5 +1,9 @@
 import {AccessTokenResponse, RefreshTokenResponse} from "../model/auth-token-response";
-import type {AxiosInstance} from "axios";
+import {AxiosInstance} from "axios";
+import {handleGoCardlessRequest} from "../helper/request-handler";
+
+const GET_REFRESH_TOKEN_URL = `/api/v2/token/refresh/`
+const GET_ACCESS_TOKEN_URL = `/api/v2/token/new/`
 
 export interface AuthOperations {
     getToken(
@@ -10,41 +14,31 @@ export interface AuthOperations {
 }
 
 export class AuthOperationsImpl implements AuthOperations {
-    private axios: AxiosInstance;
+    private axiosClient: AxiosInstance;
 
-    constructor(axiosInstance: AxiosInstance) {
-        this.axios = axiosInstance;
+    constructor(axiosClient: AxiosInstance) {
+        this.axiosClient = axiosClient;
     }
 
     async getToken(
         secretId: string,
         secretKey: string,
     ): Promise<AccessTokenResponse> {
-        try {
-            console.log("Getting New Access Token")
-            const response = await this.axios.post<AccessTokenResponse>(`/api/v2/token/new/`, {
+        console.log("Getting New Access Token")
+        return handleGoCardlessRequest(() =>
+            this.axiosClient.post<AccessTokenResponse>(GET_ACCESS_TOKEN_URL, {
                 secret_id: secretId,
                 secret_key: secretKey,
-            });
-
-            return response.data
-        } catch (err: any) {
-            console.error('Error retrieving tokens:', err);
-            throw new Error(err.message);
-        }
+            })
+        );
     }
 
     async refreshTokens(refreshToken: string): Promise<RefreshTokenResponse> {
-        try {
-            const response = await this.axios.post<RefreshTokenResponse>(
-                `/api/v2/token/refresh`,
+        return handleGoCardlessRequest(() =>
+            this.axiosClient.post<RefreshTokenResponse>(
+                GET_REFRESH_TOKEN_URL,
                 { refresh: refreshToken }
-            );
-
-            return response.data
-        } catch (err: any) {
-            console.error('Failed to refresh access token:', err);
-            throw new Error(err.message);
-        }
+            )
+        );
     }
 }
