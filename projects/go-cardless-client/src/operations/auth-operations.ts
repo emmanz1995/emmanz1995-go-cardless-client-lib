@@ -1,6 +1,6 @@
-import {AccessTokenResponse, RefreshTokenResponse} from "../model/auth-token-response";
 import {AxiosInstance} from "axios";
 import {handleGoCardlessRequest} from "../helper/request-handler";
+import {AccessTokenResponse, RefreshTokenResponse} from "go-cardless-core/dist/model/auth-token-response";
 
 const GET_REFRESH_TOKEN_URL = `/api/v2/token/refresh/`
 const GET_ACCESS_TOKEN_URL = `/api/v2/token/new/`

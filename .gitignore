@@ -1,3 +1,7 @@
 /node_modules
 /coverage
 .env
+/projects/**/node_modules
+/projects/**/.env
+/projects/**/dist
+/projects/**/tsconfig.tsbuildinfo

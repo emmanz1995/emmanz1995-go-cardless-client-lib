@@ -1,22 +1,23 @@
 {
   "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig to read more about this file */
-    /* Language and Environment */
-    "target": "es2017" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-
-    /* Modules */
-    "module": "commonjs" /* Specify what module code is generated. */,
-    "rootDir": "./lib" /* Specify the root folder within your source files. */,
-
-    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
-
-    /* Interop Constraints */
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-
-    /* Type Checking */
-    "strict": true /* Enable all strict type-checking options. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "module": "ESNext",
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "types": ["jest", "node"]
   },
-  "include": ["lib"]
+  "include": [
+    "src/**/*",
+    "__tests__/**/*"
+  ],
+  "references": [
+    { "path": "./projects/go-cardless-client" }
+  ]
 }

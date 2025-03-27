@@ -1,7 +1,6 @@
 import type { AxiosInstance } from "axios";
-import {Institution} from "../model/Institution";
 import {handleGoCardlessRequest} from "../helper/request-handler";
-import {AccessTokenResponse} from "../model/auth-token-response";
+import {Institution} from "go-cardless-core/dist/model/Institution";
 
 const GET_INSTITUTIONS_URL = `/api/v2/institutions/`
 

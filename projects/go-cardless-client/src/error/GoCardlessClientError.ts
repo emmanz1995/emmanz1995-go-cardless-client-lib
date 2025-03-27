@@ -1,5 +1,6 @@
-import {errorKeys, ErrorResponse} from "../model/error-response";
+
 import {AxiosError} from "axios";
+import {errorKeys, ErrorResponse} from "go-cardless-core/dist/model/error-response";
 
 export type FieldErrorItem = {
     field: string | null;

@@ -1,5 +1,5 @@
-import type { AccessTokenResponse } from '../model/auth-token-response';
 import {AuthOperations} from "../operations/auth-operations";
+import {AccessTokenResponse} from "go-cardless-core/dist/model/auth-token-response";
 
 export class AccessTokenManager {
   private authOps: AuthOperations;

@@ -1,62 +1,13 @@
 {
-  "name": "go-cardless-client-lib",
-  "version": "3.0.0",
-  "description": "Library to connect to go cardless api",
-  "main": "lib/connector.js",
-  "types": "lib/connector.d.ts",
+  "name": "go-cardless-js",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": ["projects/*"],
   "scripts": {
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "dist": "tsc",
-    "format": "prettier --single-quote --trailing-comma es5 --write '{lib,__tests__}/**/*.ts'"
-  },
-  "author": "Emmanuel Okuchukwu (eokuchukwu95@gmail.com)",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^1.7.2",
-    "dotenv": "^16.4.7",
-    "node-cache": "^5.1.2"
+    "build": "tsc -b",
+    "test": "npm run test -w go-cardless-client"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.13",
-    "jest": "^29.7.0",
-    "prettier": "^3.3.3",
-    "ts-jest": "^29.2.5",
-    "tsx": "^4.19.3",
     "typescript": "^5.6.2"
-  },
-  "jest": {
-    "roots": [
-      "<rootDir>/"
-    ],
-    "testMatch": [
-      "**/tests/**/*.+(ts|tsx|js)",
-      "**/?(*.)+(spec|test).+(ts|tsx|js)"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "coverageDirectory": "coverage/",
-    "collectCoverageFrom": [
-      "lib/**/*.{js,jsx,ts,tsx}"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "dist/",
-      "coverage/",
-      "lib/index.js"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "statemetns": 90,
-        "functions": 95
-      }
-    },
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/dist/"
-    ],
-    "verbose": true,
-    "testEnvironment": "node"
   }
 }

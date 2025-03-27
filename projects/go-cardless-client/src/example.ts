@@ -30,5 +30,6 @@ client.institutions.getInstitutionsByCountry("GB")
         console.log('...institutions2');
     } catch (err) {
         console.error('Error fetching institutions2:', err);
+
     }
 })();
