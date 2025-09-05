@@ -7,9 +7,9 @@ let accessToken: null = null;
 let refreshToken: null = null;
 
 const {
-  SECRET_ID: secret_id,
-  SECRET_KEY: secret_key,
-  BASE_URL: url,
+  GO_CARDLESS_SECRET_ID: secret_id,
+  GO_CARDLESS_SECRET_KEY: secret_key,
+  GO_CARDLESS_BASE_URL: url,
 } = process.env;
 
 export const retrieveTokens = async (): Promise<String | null> => {
