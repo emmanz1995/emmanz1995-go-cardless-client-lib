@@ -1,98 +1,75 @@
-import axios from 'axios';
-import connectorHelper from '../../../lib/helper/connector-helper';
+process.env.BASE_URL = 'www.homer-simpson.com';
 
 jest.mock('axios');
+jest.mock('../../../lib/fetchTokens', () => ({
+  getAccessToken: jest.fn(),
+  refreshTokens: jest.fn(),
+}));
+
+import axios from 'axios';
+import connectorHelper from '../../../lib/helper/connector-helper';
+import { getAccessToken, refreshTokens } from '../../../lib/fetchTokens';
 
 describe('connector-helper fn', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
   it('should make an axios request', async () => {
+    (getAccessToken as unknown as jest.Mock).mockImplementation(
+      () => 'eyyfu48484.eyr4u8ur8er8r'
+    );
     (axios as unknown as jest.Mock).mockResolvedValue({
-      data: { homer: 'simpson' },
+      status: 200,
+      data: { hello: 'world!' },
     });
 
     const response = await connectorHelper(
-      'www.example.com',
-      'POST',
-      {
-        title: 'Hello World',
-      },
-      {
-        'content-type': 'application/json',
-        Accept: 'application/json',
-      }
+      '/api/v2/institutions?country=GB',
+      'GET'
     );
-    expect(response).toEqual({ homer: 'simpson' });
+
+    expect(response).toEqual({ hello: 'world!' });
     expect(axios).toHaveBeenCalledTimes(1);
     expect(axios).toHaveBeenCalledWith({
-      data: '{"title":"Hello World"}',
       headers: {
         Accept: 'application/json',
+        Authorization: 'Bearer eyyfu48484.eyr4u8ur8er8r',
         'content-type': 'application/json',
       },
-      method: 'POST',
-      url: 'www.example.com',
+      method: 'GET',
+      url: '/api/v2/institutions?country=GB',
     });
   });
 
-  it('should make an axios request (without req body present)', async () => {
+  it('should make an axios request for (refresh token)', async () => {
     (axios as unknown as jest.Mock).mockResolvedValue({
-      data: { homer: 'simpson' },
+      response: { status: 401, data: { status: 401 } },
+    });
+
+    (refreshTokens as unknown as jest.Mock).mockResolvedValue(
+      'ey48u48.ey84u8r4ru8'
+    );
+
+    (axios as unknown as jest.Mock).mockResolvedValue({
+      data: { access: 'ey34yyrrr47ry27.ey8rh4hr37h734h' },
+      status: 200,
     });
 
     const response = await connectorHelper(
-      'www.example.com',
-      'POST',
-      {},
-      {
-        'content-type': 'application/json',
-        Accept: 'application/json',
-      }
+      '/api/v2/institutions?country=GB',
+      'GET'
     );
-    expect(response).toEqual({ homer: 'simpson' });
+
+    expect(response).toEqual({ access: 'ey34yyrrr47ry27.ey8rh4hr37h734h' });
     expect(axios).toHaveBeenCalledTimes(1);
     expect(axios).toHaveBeenCalledWith({
-      data: '{}',
       headers: {
         Accept: 'application/json',
+        Authorization: 'Bearer eyyfu48484.eyr4u8ur8er8r',
         'content-type': 'application/json',
       },
-      method: 'POST',
-      url: 'www.example.com',
+      method: 'GET',
+      url: '/api/v2/institutions?country=GB',
     });
-  });
-
-  it('should have failed to make an axios request', async () => {
-    expect.assertions(3) as any;
-    (axios as unknown as jest.Mock).mockImplementation(() => {
-      throw new Error('Failed to make request');
-    });
-
-    try {
-      await connectorHelper(
-        'www.example.com',
-        'GET',
-        {
-          title: 'Hello World',
-        },
-        {
-          'content-type': 'application/json',
-          Accept: 'application/json',
-        }
-      );
-    } catch (err: any) {
-      expect(err.message).toEqual('Failed to make request');
-      expect(axios).toHaveBeenCalledTimes(1);
-      expect(axios).toHaveBeenCalledWith({
-        data: '{"title":"Hello World"}',
-        headers: {
-          Accept: 'application/json',
-          'content-type': 'application/json',
-        },
-        method: 'GET',
-        url: 'www.example.com',
-      });
-    }
   });
 });

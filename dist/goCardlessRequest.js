@@ -13,13 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connector_helper_1 = __importDefault(require("./helper/connector-helper"));
-exports.default = (fetchParams) => __awaiter(void 0, void 0, void 0, function* () {
-    const { url, method, body, access_token } = fetchParams;
+const connector = (fetchParams) => __awaiter(void 0, void 0, void 0, function* () {
+    const { url, method, body } = fetchParams;
     let response;
     try {
-        response = yield (0, connector_helper_1.default)(url, method, body, {
-            Authorization: `Bearer ${access_token}`,
-        });
+        response = yield (0, connector_helper_1.default)(url, method, body);
     }
     catch (err) {
         console.log('Failed to make request to go cardless', err);
@@ -27,3 +25,10 @@ exports.default = (fetchParams) => __awaiter(void 0, void 0, void 0, function* (
     }
     return response;
 });
+exports.default = connector;
+connector({
+    url: 'https://bankaccountdata.gocardless.com/api/v2/institutions?country=GB',
+    method: 'GET',
+})
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));

@@ -1,14 +1,12 @@
 import connectorHelper from './helper/connector-helper';
 import { IFetchParams } from './helper/interfaces';
 
-export default async (fetchParams: IFetchParams) => {
-  const { url, method, body, access_token } = fetchParams;
+const connector = async (fetchParams: IFetchParams) => {
+  const { url, method, body } = fetchParams;
   let response;
 
   try {
-    response = await connectorHelper(url, method, body, {
-      Authorization: `Bearer ${access_token}`,
-    });
+    response = await connectorHelper(url, method, body);
   } catch (err: any) {
     console.log('Failed to make request to go cardless', err);
     throw new Error('Failed to make request!');
@@ -16,3 +14,12 @@ export default async (fetchParams: IFetchParams) => {
 
   return response;
 };
+
+export default connector;
+
+connector({
+  url: 'https://bankaccountdata.gocardless.com/api/v2/institutions?country=GB',
+  method: 'GET',
+})
+  .then((res: any) => console.log(res))
+  .catch((err: any) => console.log(err));

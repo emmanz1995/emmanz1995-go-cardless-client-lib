@@ -17,7 +17,6 @@ describe('connector-helper fn', () => {
       url: 'www.emmanuel.com',
       method: 'GET',
       body: null,
-      access_token: 'ey348rere.ey9843rehfeh',
     });
 
     expect(gocardlessClient).toEqual({ data: { homer: 'simpson' } });
@@ -25,8 +24,7 @@ describe('connector-helper fn', () => {
     expect(connectorHelper).toHaveBeenCalledWith(
       'www.emmanuel.com',
       'GET',
-      null,
-      { Authorization: 'Bearer ey348rere.ey9843rehfeh' }
+      null
     );
   });
 
@@ -39,17 +37,13 @@ describe('connector-helper fn', () => {
       url: 'www.emmanuel.com',
       method: 'POST',
       body: { some: 'data' },
-      access_token: 'ey348rere.ey9843rehfeh',
     });
 
     expect(gocardlessClient).toEqual({ data: { homer: 'simpson' } });
     expect(connectorHelper).toHaveBeenCalledTimes(1);
-    expect(connectorHelper).toHaveBeenCalledWith(
-      'www.emmanuel.com',
-      'POST',
-      { some: 'data' },
-      { Authorization: 'Bearer ey348rere.ey9843rehfeh' }
-    );
+    expect(connectorHelper).toHaveBeenCalledWith('www.emmanuel.com', 'POST', {
+      some: 'data',
+    });
   });
 
   it('should have failed to make an goCardlessClient request', async () => {
@@ -63,7 +57,6 @@ describe('connector-helper fn', () => {
         url: 'www.emmanuel.com',
         method: 'GET',
         body: null,
-        access_token: 'ey348rere.ey9843rehfeh',
       });
     } catch (err: any) {
       expect(err.message).toEqual('Failed to make request!');
@@ -71,8 +64,7 @@ describe('connector-helper fn', () => {
       expect(connectorHelper).toHaveBeenCalledWith(
         'www.emmanuel.com',
         'GET',
-        null,
-        { Authorization: 'Bearer ey348rere.ey9843rehfeh' }
+        null
       );
     }
   });
