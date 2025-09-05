@@ -1,10 +1,12 @@
-import {GoCardlessClient} from "./index";
+import { GoCardlessClient } from './index';
 
 const client = new GoCardlessClient();
-console.log('starting...')
+console.log('starting...');
 
 // Getting all institutions
-client.institutions.getInstitutionsByCountry("GB")
-    .then(institutions => {
-      console.log('...institutions', institutions)
-    }).catch(err => console.log(err));
+client.institutions
+  .getInstitutionsByCountry('GB')
+  .then((institutions) => {
+    console.log('...institutions', institutions);
+  })
+  .catch((err) => console.log(err));

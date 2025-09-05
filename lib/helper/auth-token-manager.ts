@@ -1,5 +1,5 @@
 import type { AccessTokenResponse } from '../model/auth-token-response';
-import {AuthOperations} from "../operations/auth-operations";
+import { AuthOperations } from '../operations/auth-operations';
 
 export class AccessTokenManager {
   private authOps: AuthOperations;
@@ -18,11 +18,15 @@ export class AccessTokenManager {
   }
 
   public async getAccessToken(): Promise<string> {
-    console.log('making access token')
+    console.log('making access token');
     const now = Date.now();
     const buffer = 5 * 1000; // optional: expire a few seconds early
 
-    if (this.accessToken && this.accessExpiresAt && now < this.accessExpiresAt - buffer) {
+    if (
+      this.accessToken &&
+      this.accessExpiresAt &&
+      now < this.accessExpiresAt - buffer
+    ) {
       return this.accessToken;
     }
 
@@ -34,14 +38,14 @@ export class AccessTokenManager {
     //   this.ongoingTokenRequest = null;
     // });
 
-    return await this.retrieveNewToken()
+    return await this.retrieveNewToken();
   }
 
   private async retrieveNewToken(): Promise<string> {
     try {
       const tokenData: AccessTokenResponse = await this.authOps.getToken(
-          this.secretId,
-          this.secretKey
+        this.secretId,
+        this.secretKey
       );
 
       this.accessToken = tokenData.access;
