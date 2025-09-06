@@ -1,9 +1,9 @@
 {
   "name": "go-cardless-client-lib",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Library to connect to go cardless api",
-  "main": "lib/connector.js",
-  "types": "lib/connector.d.ts",
+  "main": "lib/goCardlessRequest.js",
+  "types": "lib/goCardlessRequest.d.ts",
   "scripts": {
     "test": "jest",
     "test:coverage": "jest --coverage",
